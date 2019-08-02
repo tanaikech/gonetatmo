@@ -18,7 +18,7 @@ func createHelp() *cli.App {
 	a.Author = "tanaike [ https://github.com/tanaikech/" + appname + " ] "
 	a.Email = "tanaike@hotmail.com"
 	a.Usage = "Retrieve values from own Netatmo."
-	a.Version = "1.0.0"
+	a.Version = "1.0.1"
 	a.Flags = []cli.Flag{
 		cli.BoolFlag{
 			Name:  "raw",

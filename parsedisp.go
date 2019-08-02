@@ -353,24 +353,26 @@ func (so *stationsdataForOutput) getOutsideData(e interface{}) {
 		otDat.FirmWare = int(f.(map[string]interface{})["firmware"].(float64))
 		otDat.BatteryPercent = int(f.(map[string]interface{})["battery_percent"].(float64))
 		otDat.BatteryVp = int(f.(map[string]interface{})["battery_vp"].(float64))
-		for i := 0; i < s.NumField(); i++ {
-			for j, f := range f.(map[string]interface{})["dashboard_data"].(map[string]interface{}) {
-				if strings.Split(typeOfT.Field(i).Tag.Get("json"), ",")[0] == j {
-					fl := s.FieldByName(typeOfT.Field(i).Name)
-					switch fl.Kind() {
-					case reflect.Int, reflect.Int64:
-						c, _ := f.(float64)
-						fl.SetInt(int64(c))
-					case reflect.Float64:
-						f64, _ := f.(float64)
-						fl.SetFloat(f64)
-					case reflect.String:
-						fl.SetString(f.(string))
+		if f.(map[string]interface{})["reachable"].(bool) {
+			for i := 0; i < s.NumField(); i++ {
+				for j, f := range f.(map[string]interface{})["dashboard_data"].(map[string]interface{}) {
+					if strings.Split(typeOfT.Field(i).Tag.Get("json"), ",")[0] == j {
+						fl := s.FieldByName(typeOfT.Field(i).Name)
+						switch fl.Kind() {
+						case reflect.Int, reflect.Int64:
+							c, _ := f.(float64)
+							fl.SetInt(int64(c))
+						case reflect.Float64:
+							f64, _ := f.(float64)
+							fl.SetFloat(f64)
+						case reflect.String:
+							fl.SetString(f.(string))
+						}
 					}
-				}
-				if otDat.TimeUtc > 0 && otDat.MesTime == "" {
-					date := time.Unix(otDat.TimeUtc, 0)
-					otDat.MesTime = date.In(time.Local).Format("20060102_15:04:05_MST")
+					if otDat.TimeUtc > 0 && otDat.MesTime == "" {
+						date := time.Unix(otDat.TimeUtc, 0)
+						otDat.MesTime = date.In(time.Local).Format("20060102_15:04:05_MST")
+					}
 				}
 			}
 		}
