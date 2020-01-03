@@ -195,7 +195,7 @@ func (m *materials) getStationsData(c *cli.Context) {
 }
 
 // handler : Initialize of "para".
-func handler(c *cli.Context) {
+func handler(c *cli.Context) error {
 	m := initParams()
 	if err := m.chkCfg(c); err != nil {
 		fmt.Printf("Error: %v\n", err)
@@ -209,5 +209,5 @@ func handler(c *cli.Context) {
 	default:
 		m.getStationsData(c)
 	}
-	return
+	return nil
 }

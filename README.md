@@ -168,4 +168,10 @@ If you have any questions and commissions for me, feel free to tell me.
   1. A bug was removed.
      - When the outer module is not active, an error occurred. In this version, this bug was removed.
 
+<a name="v102"></a>
+
+- v1.0.2 (January 3, 2020)
+
+  1. It seems that the specification of `github.com/urfave/cli` was changed by the update of [https://github.com/urfave/cli](https://github.com/urfave/cli). By this, when `go get -u github.com/tanaikech/gonetatmo` is run, an error occurred. So this error was removed.
+
 [TOP](#top)
